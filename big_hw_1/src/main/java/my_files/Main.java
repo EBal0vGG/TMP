@@ -3,6 +3,7 @@ package my_files;
 import my_files.command.Command;
 import my_files.command.CreateOperationCommand;
 import my_files.command.TimedCommandDecorator;
+import my_files.exports.CSVExportVisitor;
 import my_files.model.Common_Facade;
 
 public class Main {
@@ -16,5 +17,8 @@ public class Main {
         Command timedCommand = new TimedCommandDecorator(createOpCommand);
 
         timedCommand.execute();
+
+        CSVExportVisitor exportVisitor = new CSVExportVisitor();
+        facade.exportData(exportVisitor);
     }
 }

@@ -287,4 +287,19 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
         }
         return result;
     }
+
+    //Работа с файлами и данными
+    public void exportData(my_files.exports.ExportVisitor visitor) {
+        System.out.println("Экспорт данных");
+        System.err.println("ПОКА ВООБЩЕ НЕ РЕАЛИЗОВАНО - ПО СУТИ, ЭТО ЭКСПОРТ В КОНСОЛЬ");
+        for (BA account : Accounts) {
+            account.accept(visitor);
+        }
+        for (Category category : Categories) {
+            category.accept(visitor);
+        }
+        for (Operation operation : Operations) {
+            operation.accept(visitor);
+        }
+    }
 }

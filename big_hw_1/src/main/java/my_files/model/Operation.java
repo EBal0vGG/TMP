@@ -2,6 +2,9 @@ package my_files.model;
 
 import java.time.LocalDateTime;
 
+import my_files.exports.ExportVisitor;
+
+
 public class Operation {
     public final int id;
     private static int lastIDused = 0;
@@ -32,6 +35,17 @@ public class Operation {
         time = Time;
         category_id = cat_id;
         description = "";
+    }
+
+    //МНЕ ЭТО ВООБЩЕ НЕ НРАВИТСЯ!!!!
+    // НАДО, ЧТОБ только визитор из классов вне папки model мог получить доступ к полям
+    public double get_amount() {
+        return sum;
+    }
+
+
+    public void accept(ExportVisitor visitor) {
+        visitor.visit(this);
     }
 
 }

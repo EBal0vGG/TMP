@@ -1,11 +1,13 @@
 package my_files.model;
 
+import my_files.exports.ExportVisitor;
+
 public class Category {
     public final int id;
     private static int lastIDused = 0;
 
-    String name;
-    final boolean isExpenditure;  //  type
+    public String name;
+    public final boolean isExpenditure;  //  type
 
     public Category() {
         id = ++lastIDused;
@@ -44,5 +46,9 @@ public class Category {
         lastIDused = Id;
         name = new_name;
         isExpenditure = b;
+    }
+
+    public void accept(ExportVisitor visitor) {
+        visitor.visit(this);
     }
 }

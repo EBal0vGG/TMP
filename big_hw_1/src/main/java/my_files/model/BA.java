@@ -1,5 +1,6 @@
 package my_files.model;
 
+import my_files.exports.ExportVisitor;
 
 // TODO: Добавить геттеры и сеттеры, подумать, какие еще методы нужны
 
@@ -48,5 +49,9 @@ public class BA {
         lastIDused = ID;
         name = new_name;
         balance = Balance;
+    }
+
+    public void accept(ExportVisitor visitor) {
+        visitor.visit(this);
     }
 }
