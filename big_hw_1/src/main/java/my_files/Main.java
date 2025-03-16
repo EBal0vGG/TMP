@@ -4,8 +4,7 @@ import my_files.command.Command;
 import my_files.command.CreateOperationCommand;
 import my_files.command.TimedCommandDecorator;
 import my_files.exports.CSVExportVisitor;
-import my_files.exports.JsonExportVisitor;
-import my_files.imports.JsonDataImporter;
+import my_files.imports.CSVDataimporter;
 import my_files.model.Common_Facade;
 
 public class Main {
@@ -15,9 +14,14 @@ public class Main {
         Common_Facade facade = new Common_Facade();
 
 
+        /* это уже точно работает
         JsonDataImporter importer = new JsonDataImporter(facade);
         //Перекинуть потом data.json в папку resources
         importer.importFile("src/main/resources/data.json");
+        */
+
+        CSVDataimporter CDI = new CSVDataimporter(facade);
+        CDI.importFile("src/main/resources/data.csv");
         
         //Для проверки можно вывести, сколько объектов импортировано
         System.out.println("Импортированные аккаунты: " + facade.getAccounts().size());
@@ -49,26 +53,22 @@ public class Main {
 
         //Пример команды для создания операции
         Command createOpCommand = new CreateOperationCommand(facade, true, 1, 100.0, /*LocalDateTime.now(), Время вроде как тут не нужно */ 1, "Test operation");
-
         Command timedCommand = new TimedCommandDecorator(createOpCommand);
-
         timedCommand.execute();
-
-        CSVExportVisitor exportVisitor = new CSVExportVisitor();
-        facade.exportData(exportVisitor);
 
 
         
         //тест первого нормально экспортера (в json)
+        /* чтоб не портить данные в json, закомментил
         JsonExportVisitor JEV = new JsonExportVisitor();
         facade.exportData(JEV);
-
         JEV.exportToFile("src/main/resources/data.json");
+        */
 
         //тест второго экспортера (в csv)
         CSVExportVisitor CEV = new CSVExportVisitor();
         facade.exportData(CEV);
         CEV.exportToFile("src/main/resources/data.csv");
-        
+
     }
 }
