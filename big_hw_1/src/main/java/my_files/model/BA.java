@@ -1,5 +1,8 @@
 package my_files.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import my_files.exports.ExportVisitor;
 
 // TODO: Добавить геттеры и сеттеры, подумать, какие еще методы нужны
@@ -44,6 +47,24 @@ public class BA {
         balance = Balance;
     }
 
+    @JsonCreator
+    public BA(
+        @JsonProperty("id") Integer id,
+        @JsonProperty("name") String name,
+        @JsonProperty("balance") Double balance
+    ) {
+        if (id != null) {
+            this.id = id;
+            if (id > lastIDused) {
+                lastIDused = id;
+            }
+        } else {
+            this.id = ++lastIDused;
+        }
+        this.name = name;
+        this.balance = balance != null ? balance : 0;
+    }
+
     public BA (int ID, String new_name, int Balance) {
         id = ID;
         lastIDused = ID;
@@ -57,5 +78,13 @@ public class BA {
 
     public double getBalance() {
         return balance;
+    }
+
+    // потом мб убрать надо
+    public int getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
     }
 }

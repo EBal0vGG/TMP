@@ -1,0 +1,48 @@
+{
+  "accounts" : [ {
+    "id" : 1,
+    "name" : "Main Account",
+    "balance" : 900.0
+  }, {
+    "id" : 2,
+    "name" : "Savings",
+    "balance" : 500.0
+  } ],
+  "categories" : [ {
+    "id" : 1,
+    "name" : "Salary",
+    "isExpenditure" : false
+  }, {
+    "id" : 2,
+    "name" : "Food",
+    "isExpenditure" : true
+  } ],
+  "operations" : [ {
+    "id" : 1,
+    "isExpenditure" : false,
+    "description" : "Monthly salary",
+    "amount" : 1000.0,
+    "categoryId" : 1,
+    "accountId" : 1,
+    "_amount" : 1000.0,
+    "date" : [ 2025, 3, 16, 12, 0 ]
+  }, {
+    "id" : 2,
+    "isExpenditure" : true,
+    "description" : "Groceries",
+    "amount" : 50.0,
+    "categoryId" : 2,
+    "accountId" : 2,
+    "_amount" : 50.0,
+    "date" : [ 2025, 3, 17, 13, 0 ]
+  }, {
+    "id" : 3,
+    "isExpenditure" : true,
+    "description" : "Test operation",
+    "amount" : 100.0,
+    "categoryId" : 1,
+    "accountId" : 1,
+    "_amount" : 100.0,
+    "date" : [ 2025, 3, 16, 16, 8, 42, 932462000 ]
+  } ]
+}

@@ -4,6 +4,7 @@ import my_files.command.Command;
 import my_files.command.CreateOperationCommand;
 import my_files.command.TimedCommandDecorator;
 import my_files.exports.CSVExportVisitor;
+import my_files.exports.JsonExportVisitor;
 import my_files.imports.JsonDataImporter;
 import my_files.model.Common_Facade;
 
@@ -20,11 +21,30 @@ public class Main {
         
         //Для проверки можно вывести, сколько объектов импортировано
         System.out.println("Импортированные аккаунты: " + facade.getAccounts().size());
-        System.out.println("\n" + facade.getAccounts() + "\n");
+        facade.getAccounts().forEach(account -> {
+            System.out.println("Account ID: " + account.getId());
+            System.out.println("Account Name: " + account.getName());
+            System.out.println("Account Balance: " + account.getBalance());
+            System.out.println();
+        });
+
         System.out.println("Импортированные категории: " + facade.getCategories().size());
-        System.out.println("\n" + facade.getCategories() + "\n");
+        facade.getCategories().forEach(category -> {
+            System.out.println("Category ID: " + category.getId());
+            System.out.println("Category Name: " + category.getName());
+            System.out.println();
+        });
+
         System.out.println("Импортированные операции: " + facade.getOperations().size());
-        System.out.println("\n" + facade.getOperations() + "\n");
+        facade.getOperations().forEach(operation -> {
+            System.out.println("Operation ID: " + operation.getId());
+            System.out.println("Operation Amount: " + operation.getAmount());
+            System.out.println("Operation Date: " + operation.getDate());
+            System.out.println("Operation Category ID: " + operation.getCategoryId());
+            System.out.println("Operation Account ID: " + operation.getAccountId());
+            System.out.println("Operation Description: " + operation.getDescription());
+            System.out.println();
+        });
 
 
         //Пример команды для создания операции
@@ -36,5 +56,13 @@ public class Main {
 
         CSVExportVisitor exportVisitor = new CSVExportVisitor();
         facade.exportData(exportVisitor);
+
+
+        
+        //тест первого нормально экспортера (в json)
+        JsonExportVisitor JEV = new JsonExportVisitor();
+        facade.exportData(JEV);
+
+        JEV.exportToFile("src/main/java/my_files/exports/data.json");
     }
 }

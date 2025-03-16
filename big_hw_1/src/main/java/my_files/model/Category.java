@@ -1,5 +1,8 @@
 package my_files.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import my_files.exports.ExportVisitor;
 
 public class Category {
@@ -48,7 +51,31 @@ public class Category {
         isExpenditure = b;
     }
 
+    @JsonCreator
+    public Category(@JsonProperty("id") Integer id,
+                    @JsonProperty("name") String name,
+                    @JsonProperty("isExpenditure") Boolean isExpenditure) {
+        if (id != null) {
+            this.id = id;
+            if (id > lastIDused) {
+                lastIDused = id;
+            }
+        } else {
+            this.id = ++lastIDused;
+        }
+        this.name = name;
+        this.isExpenditure = isExpenditure != null ? isExpenditure : true;
+    }
+
     public void accept(ExportVisitor visitor) {
         visitor.visit(this);
+    }
+
+    //потом мб убрать надо
+    public int getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
     }
 }

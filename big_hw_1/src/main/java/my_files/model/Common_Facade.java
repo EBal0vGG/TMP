@@ -173,7 +173,7 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
     public void get_Operation_info(int id) {
         for (Operation operation : Operations) {
             if (operation.id == id) {
-                System.out.println("ID: " + operation.id + " isExpenditure: " + operation.isExpemditure + " BA_id: " + operation.BA_id + " Sum: " + operation.sum + " Time: " + operation.time + " Category_id: " + operation.category_id + " Description: " + operation.description);
+                System.out.println("ID: " + operation.id + " isExpenditure: " + operation.isExpenditure + " BA_id: " + operation.BA_id + " Sum: " + operation.sum + " Time: " + operation.time + " Category_id: " + operation.category_id + " Description: " + operation.description);
                 break;
             }
         }
@@ -213,7 +213,7 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
     public double calculateNetIncome (LocalDateTime start, LocalDateTime end) {
         double income = 0;
         for (Operation operation : Operations) {
-            if (!operation.isExpemditure && operation.time.isAfter(start) && operation.time.isBefore(end)) {
+            if (!operation.isExpenditure && operation.time.isAfter(start) && operation.time.isBefore(end)) {
                 income += operation.sum;
             }
         }
@@ -223,7 +223,7 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
     public double calculateNetExpenditures(LocalDateTime start, LocalDateTime end) {
         double expenditure = 0;
         for (Operation operation : Operations) {
-            if (operation.isExpemditure && operation.time.isAfter(start) && operation.time.isBefore(end)) {
+            if (operation.isExpenditure && operation.time.isAfter(start) && operation.time.isBefore(end)) {
                 expenditure += operation.sum;
             }
         }
@@ -253,7 +253,7 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
     public double calculateAccountIncome(int id, LocalDateTime start, LocalDateTime end) {
         double income = 0;
         for (Operation operation : Operations) {
-            if (operation.BA_id == id && !operation.isExpemditure && operation.time.isAfter(start) && operation.time.isBefore(end)) {
+            if (operation.BA_id == id && !operation.isExpenditure && operation.time.isAfter(start) && operation.time.isBefore(end)) {
                 income += operation.sum;
             }
         }
@@ -263,7 +263,7 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
     public double calculateAccountExpenditure(int id, LocalDateTime start, LocalDateTime end) {
         double expenditure = 0;
         for (Operation operation : Operations) {
-            if (operation.BA_id == id && operation.isExpemditure && operation.time.isAfter(start) && operation.time.isBefore(end)) {
+            if (operation.BA_id == id && operation.isExpenditure && operation.time.isAfter(start) && operation.time.isBefore(end)) {
                 expenditure += operation.sum;
             }
         }
