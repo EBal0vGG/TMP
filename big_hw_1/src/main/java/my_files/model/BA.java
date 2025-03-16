@@ -54,4 +54,8 @@ public class BA {
     public void accept(ExportVisitor visitor) {
         visitor.visit(this);
     }
+
+    public double getBalance() {
+        return balance;
+    }
 }

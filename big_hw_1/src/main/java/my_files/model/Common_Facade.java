@@ -302,4 +302,22 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
             operation.accept(visitor);
         }
     }
+
+    public void clearData() {
+        Accounts.clear();
+        Categories.clear();
+        Operations.clear();
+    }
+
+    public List<BA> getAccounts() {
+        return Accounts;
+    }
+
+    public List<Category> getCategories() {
+        return Categories;
+    }
+
+    public List<Operation> getOperations() {
+        return Operations;
+    }
 }

@@ -19,7 +19,7 @@ public abstract class DataImporter {
 
         } catch (IOException e) {
             System.out.println("Возникла ошибка при четнии файла " + path);
-            e.printStackTrace();;
+            e.printStackTrace();
         }
     }
 

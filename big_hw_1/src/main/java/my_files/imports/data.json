@@ -1,0 +1,14 @@
+{    
+    "accounts": [
+         { "name": "Main Account", "balance": 1000 },
+         { "name": "Savings", "balance": 500 }  
+    ],
+    "categories": [
+         { "name": "Salary", "isExpenditure": false },
+         { "name": "Food", "isExpenditure": true } 
+    ],
+    "operations": [
+         { "isExpemditure": false, "BA_id": 1, "sum": 1000, "time": "2025-03-16T12:00:00", "category_id": 1, "description": "Monthly salary" },
+         { "isExpemditure": true, "BA_id": 2, "sum": 50,  "time": "2025-03-17T13:00:00", "category_id": 2, "description": "Groceries" }  
+    ]
+}

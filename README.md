@@ -7,7 +7,7 @@ mvn clean package
 ```
 запуск:
 ```
-java -cp target/classes my_files.Main
+mvn exec:java -Dexec.mainClass="my_files.Main"
 ```
 (все, что выше, делается в папке mini_hw_1)
 ---
