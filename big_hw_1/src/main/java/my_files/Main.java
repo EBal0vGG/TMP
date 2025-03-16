@@ -64,5 +64,11 @@ public class Main {
         facade.exportData(JEV);
 
         JEV.exportToFile("src/main/resources/data.json");
+
+        //тест второго экспортера (в csv)
+        CSVExportVisitor CEV = new CSVExportVisitor();
+        facade.exportData(CEV);
+        CEV.exportToFile("src/main/resources/data.csv");
+        
     }
 }
