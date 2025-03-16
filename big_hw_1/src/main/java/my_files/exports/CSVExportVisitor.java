@@ -20,6 +20,6 @@ public class CSVExportVisitor implements ExportVisitor {
     @Override
     public void visit(Operation operation) {
         // будем писать с помощью Jackson в csv-шку
-        System.out.println("Экспорт операции в CSV: " + operation.id + " " + operation.get_amount());
+        System.out.println("Экспорт операции в CSV: " + operation.id + " " + operation.getSum());
     }
 }

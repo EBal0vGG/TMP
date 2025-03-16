@@ -17,7 +17,7 @@ public class Main {
 
         JsonDataImporter importer = new JsonDataImporter(facade);
         //Перекинуть потом data.json в папку resources
-        importer.importFile("src/main/java/my_files/imports/data.json");
+        importer.importFile("src/main/resources/data.json");
         
         //Для проверки можно вывести, сколько объектов импортировано
         System.out.println("Импортированные аккаунты: " + facade.getAccounts().size());
@@ -38,10 +38,10 @@ public class Main {
         System.out.println("Импортированные операции: " + facade.getOperations().size());
         facade.getOperations().forEach(operation -> {
             System.out.println("Operation ID: " + operation.getId());
-            System.out.println("Operation Amount: " + operation.getAmount());
-            System.out.println("Operation Date: " + operation.getDate());
-            System.out.println("Operation Category ID: " + operation.getCategoryId());
-            System.out.println("Operation Account ID: " + operation.getAccountId());
+            System.out.println("Operation Amount: " + operation.getSum());
+            System.out.println("Operation Date: " + operation.getTime());
+            System.out.println("Operation Category ID: " + operation.getCategory_id());
+            System.out.println("Operation Account ID: " + operation.getBA_id());
             System.out.println("Operation Description: " + operation.getDescription());
             System.out.println();
         });
@@ -63,6 +63,6 @@ public class Main {
         JsonExportVisitor JEV = new JsonExportVisitor();
         facade.exportData(JEV);
 
-        JEV.exportToFile("src/main/java/my_files/exports/data.json");
+        JEV.exportToFile("src/main/resources/data.json");
     }
 }

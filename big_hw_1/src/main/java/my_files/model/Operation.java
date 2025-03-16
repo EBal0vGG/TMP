@@ -20,23 +20,6 @@ public class Operation {
     final int category_id;
     String description; //опционально
 
-    /*@JsonCreator
-    public Operation(
-            @JsonProperty("isExpenditure") boolean is_exp,
-            @JsonProperty("BA_id") int ba_id,
-            @JsonProperty("sum") double Sum,
-            @JsonProperty("time") LocalDateTime Time,
-            @JsonProperty("category_id") int cat_id,
-            @JsonProperty("description") String descr) {
-        id = ++lastIDused;
-        if (is_exp) isExpenditure = true;
-        else isExpenditure = false;
-        BA_id = ba_id;
-        sum = Sum;
-        time = Time;
-        category_id = cat_id;
-        description = descr;
-    }*/
     public Operation(
             boolean is_exp,
             int ba_id,
@@ -88,36 +71,39 @@ public class Operation {
         this.category_id = category_id;
         this.description = description;
     }
-    
-
-    //МНЕ ЭТО ВООБЩЕ НЕ НРАВИТСЯ!!!!
-    // НАДО, ЧТОБ только визитор из классов вне папки model мог получить доступ к полям
-    public double get_amount() {
-        return sum;
-    }
-
 
     public void accept(ExportVisitor visitor) {
         visitor.visit(this);
     }
+    
 
-
-    //потом мб убрать надо
+    //МНЕ ЭТО ВООБЩЕ НЕ НРАВИТСЯ!!!!
+    // НАДО, ЧТОБ только визитор из классов вне папки model мог получить доступ к полям
+    @JsonProperty("id")
     public int getId() {
         return id;
     }
-    public double getAmount() {
-        return sum;
+    @JsonProperty("isExpenditure")
+    public boolean getIsExpenditure() {
+        return isExpenditure;
     }
-    public LocalDateTime getDate() {
-        return time;
-    }
-    public int getCategoryId() {
-        return category_id;
-    }
-    public int getAccountId() {
+    @JsonProperty("BA_id")
+    public int getBA_id() {
         return BA_id;
     }
+    @JsonProperty("sum")
+    public double getSum() {
+        return sum;
+    }
+    @JsonProperty("time")
+    public LocalDateTime getTime() {
+        return time;
+    }
+    @JsonProperty("category_id")
+    public int getCategory_id() {
+        return category_id;
+    }
+    @JsonProperty("description")
     public String getDescription() {
         return description;
     }
