@@ -2,7 +2,7 @@
 accounts:
 - id: 1
   name: "Main Account"
-  balance: 600.0
+  balance: 300.0
 - id: 2
   name: "Savings"
   balance: 500.0
@@ -54,5 +54,26 @@ operations:
   BA_id: 1
   sum: 100.0
   time: "2025-03-19T23:23:11.79943"
+  category_id: 1
+  description: "Test operation"
+- id: 7
+  isExpenditure: true
+  BA_id: 1
+  sum: 100.0
+  time: "2025-03-19T23:26:57.848217"
+  category_id: 1
+  description: "Test operation"
+- id: 8
+  isExpenditure: true
+  BA_id: 1
+  sum: 100.0
+  time: "2025-03-19T23:40:25.186527"
+  category_id: 1
+  description: "Test operation"
+- id: 9
+  isExpenditure: true
+  BA_id: 1
+  sum: 100.0
+  time: "2025-03-19T23:40:31.698627"
   category_id: 1
   description: "Test operation"

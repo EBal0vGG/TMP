@@ -28,19 +28,19 @@ public class BA {
         balance = 0;
     }
 
-    public BA (int Balance) {
+    public BA (double Balance) {
         id = ++lastIDused;
         name = String.valueOf(id);
         this.balance = Balance;
     }
 
-    public BA(int Balance, String new_name) {
+    public BA(double Balance, String new_name) {
         id = ++lastIDused;
         name = new_name;
         balance = Balance;
     }
 
-    public BA(int ID, int Balance) {
+    public BA(int ID, double Balance) {
         id = ID;
         lastIDused = ID;
         name = String.valueOf(id);
