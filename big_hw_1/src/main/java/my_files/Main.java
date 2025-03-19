@@ -3,8 +3,8 @@ package my_files;
 import my_files.command.Command;
 import my_files.command.CreateOperationCommand;
 import my_files.command.TimedCommandDecorator;
-import my_files.exports.CSVExportVisitor;
-import my_files.imports.CSVDataimporter;
+import my_files.exports.YamlExportVisitor;
+import my_files.imports.YamlDataImporter;
 import my_files.model.Common_Facade;
 
 public class Main {
@@ -14,14 +14,20 @@ public class Main {
         Common_Facade facade = new Common_Facade();
 
 
-        /* это уже точно работает
+        /* это уже точно работает */
+        /* 
         JsonDataImporter importer = new JsonDataImporter(facade);
         //Перекинуть потом data.json в папку resources
         importer.importFile("src/main/resources/data.json");
-        */
+         */
 
+        /* 
         CSVDataimporter CDI = new CSVDataimporter(facade);
         CDI.importFile("src/main/resources/data.csv");
+        */
+
+        YamlDataImporter YDI = new YamlDataImporter(facade);
+        YDI.importFile("src/main/resources/data.yaml");
         
         //Для проверки можно вывести, сколько объектов импортировано
         System.out.println("Импортированные аккаунты: " + facade.getAccounts().size());
@@ -66,9 +72,15 @@ public class Main {
         */
 
         //тест второго экспортера (в csv)
+        /*
         CSVExportVisitor CEV = new CSVExportVisitor();
         facade.exportData(CEV);
         CEV.exportToFile("src/main/resources/data.csv");
+        */
 
+        //
+        YamlExportVisitor YEV = new YamlExportVisitor();
+        facade.exportData(YEV);
+        YEV.exportToFile("src/main/resources/data.yaml");
     }
 }

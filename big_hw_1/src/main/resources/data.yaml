@@ -1,0 +1,58 @@
+---
+accounts:
+- id: 1
+  name: "Main Account"
+  balance: 600.0
+- id: 2
+  name: "Savings"
+  balance: 500.0
+categories:
+- id: 1
+  name: "Salary"
+  isExpenditure: false
+- id: 2
+  name: "Food"
+  isExpenditure: true
+operations:
+- id: 1
+  isExpenditure: false
+  BA_id: 1
+  sum: 1000.0
+  time: "2025-03-16T12:00:00"
+  category_id: 1
+  description: "Monthly salary"
+- id: 2
+  isExpenditure: true
+  BA_id: 2
+  sum: 50.0
+  time: "2025-03-17T13:00:00"
+  category_id: 2
+  description: "Groceries"
+- id: 3
+  isExpenditure: true
+  BA_id: 1
+  sum: 100.0
+  time: "2025-03-19T23:12:07.547866"
+  category_id: 1
+  description: "Test operation"
+- id: 4
+  isExpenditure: true
+  BA_id: 1
+  sum: 100.0
+  time: "2025-03-19T23:22:57.695608"
+  category_id: 1
+  description: "Test operation"
+- id: 5
+  isExpenditure: true
+  BA_id: 1
+  sum: 100.0
+  time: "2025-03-19T23:23:06.47911"
+  category_id: 1
+  description: "Test operation"
+- id: 6
+  isExpenditure: true
+  BA_id: 1
+  sum: 100.0
+  time: "2025-03-19T23:23:11.79943"
+  category_id: 1
+  description: "Test operation"
