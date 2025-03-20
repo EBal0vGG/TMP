@@ -215,27 +215,17 @@ namespace BankApplication
 
         private static void PrintMenu()
         {
-            Console.WriteLine("==== Меню банка ====");
-            Console.WriteLine("1. Список счетов");
-            Console.WriteLine("2. Создать счет");
-            Console.WriteLine("3. Изменить имя счета");
-            Console.WriteLine("4. Удалить счет");
-            Console.WriteLine("5. Список категорий");
-            Console.WriteLine("6. Создать категорию");
-            Console.WriteLine("7. Изменить имя категории");
-            Console.WriteLine("8. Удалить категорию");
-            Console.WriteLine("9. Список операций");
-            Console.WriteLine("10. Создать операцию");
-            Console.WriteLine("11. Изменить описание операции");
-            Console.WriteLine("12. Удалить операцию");
-            Console.WriteLine("13. Аналитика: Чистая прибыль за период");
-            Console.WriteLine("14. Аналитика: Общий доход за период");
-            Console.WriteLine("15. Аналитика: Общие расходы за период");
-            Console.WriteLine("16. Аналитика: Прибыль по счёту");
-            Console.WriteLine("17. Аналитика: Группировка всех операций по категориям");
-            Console.WriteLine("18. Аналитика: Группировка операций по категориям для счёта");
-            Console.WriteLine("0 или 'exit' - Выход");
-            Console.Write("Выберите опцию: ");
+            foreach (var menuItem in facade.GetMenuItems())
+            {
+                if (menuItem == "Выберите опцию: ")
+                {
+                    Console.Write(menuItem);
+                }
+                else
+                {
+                    Console.WriteLine(menuItem);
+                }
+            }
         }
 
         // CRUD для счетов
