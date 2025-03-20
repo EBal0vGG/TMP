@@ -2,9 +2,6 @@ package my_files;
 
 import java.util.Scanner;
 
-import my_files.command.Command;
-import my_files.command.CreateOperationCommand;
-import my_files.command.TimedCommandDecorator;
 import my_files.di.DI;
 import my_files.exports.CSVExportVisitor;
 import my_files.exports.JsonExportVisitor;
@@ -160,6 +157,55 @@ public class Main {
         System.out.println("Выход из приложения.");
         scanner.close();
     }
+
+    private static int readInt(Scanner scanner, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim();
+            try {
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: введите целое число.");
+            }
+        }
+    }
+
+
+    private static double readDouble(Scanner scanner, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim();
+            try {
+                return Double.parseDouble(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: введите число (с плавающей точкой, если нужно).");
+            }
+        }
+    }
+
+    private static java.time.LocalDateTime readLocalDateTime(Scanner scanner, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim();
+            try {
+                return java.time.LocalDateTime.parse(input);
+            } catch (Exception e) {
+                System.out.println("Ошибка: введите дату и время в формате yyyy-MM-ddTHH:mm.");
+            }
+        }
+    }
+
+    private static boolean readBoolean(Scanner scanner, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim();
+            if (input.equalsIgnoreCase("true") || input.equalsIgnoreCase("false")) {
+                return Boolean.parseBoolean(input);
+            } else {
+                System.out.println("Ошибка: введите true или false.");
+            }
+        }
+    }
     
     private static void printMenu() {
         System.out.println("==== Меню банка ====");
@@ -203,19 +249,17 @@ public class Main {
     }
     
     private static void updateAccountName(Common_Facade facade, Scanner scanner) {
-        System.out.print("Введите ID счета для изменения: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = readInt(scanner, "Введите ID счета для изменения: ");
         System.out.print("Введите новое имя счета: ");
         String newName = scanner.nextLine();
         facade.change_BA_name(id, newName);
-        System.out.println("Имя счета изменено.");
+        //System.out.println("Имя счета изменено.");
     }
     
     private static void deleteAccount(Common_Facade facade, Scanner scanner) {
-        System.out.print("Введите ID счета для удаления: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = readInt(scanner, "Введите ID счета для удаления: ");
         facade.deleteBA(id);
-        System.out.println("Счет удален.");
+        //System.out.println("Счет удален.");
     }
     
     // CRUD для категорий
@@ -231,26 +275,23 @@ public class Main {
     private static void createCategory(Common_Facade facade, Scanner scanner) {
         System.out.print("Введите имя новой категории: ");
         String name = scanner.nextLine();
-        System.out.print("Введите тип (true для расхода, false для дохода): ");
-        boolean isExpense = Boolean.parseBoolean(scanner.nextLine());
+        boolean isExpense = readBoolean(scanner, "Введите тип (true для расхода, false для дохода): ");
         facade.createCategory(name, isExpense);
         System.out.println("Категория создана.");
     }
     
     private static void updateCategoryName(Common_Facade facade, Scanner scanner) {
-        System.out.print("Введите ID категории для изменения: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = readInt(scanner, "Введите ID категории для изменения: ");
         System.out.print("Введите новое имя категории: ");
         String newName = scanner.nextLine();
         facade.change_Category_name(id, newName);
-        System.out.println("Имя категории изменено.");
+        //System.out.println("Имя категории изменено.");
     }
     
     private static void deleteCategory(Common_Facade facade, Scanner scanner) {
-        System.out.print("Введите ID категории для удаления: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = readInt(scanner, "Введите ID категории для удаления: ");
         facade.deleteCategory(id);
-        System.out.println("Категория удалена.");
+        //System.out.println("Категория удалена.");
     }
     
     // CRUD для операций
@@ -268,94 +309,67 @@ public class Main {
     }
     
     private static void createOperation(Common_Facade facade, Scanner scanner) {
-        System.out.print("Введите тип операции (true для расхода, false для дохода): ");
-        boolean isExpense = Boolean.parseBoolean(scanner.nextLine());
-        System.out.print("Введите ID счета: ");
-        int accountId = Integer.parseInt(scanner.nextLine());
-        System.out.print("Введите сумму: ");
-        double sum = Double.parseDouble(scanner.nextLine());
-        System.out.print("Введите ID категории: ");
-        int catId = Integer.parseInt(scanner.nextLine());
+        boolean isExpense = readBoolean(scanner, "Введите тип операции (true для расхода, false для дохода): ");
+        int accountId = readInt(scanner, "Введите ID счета: ");
+        double sum = readDouble(scanner, "Введите сумму: ");
+        int catId = readInt(scanner, "Введите ID категории: ");
         System.out.print("Введите описание операции: ");
         String descr = scanner.nextLine();
         facade.createOperation(isExpense, accountId, sum, java.time.LocalDateTime.now(), catId, descr);
-        System.out.println("Операция создана.");
+        //System.out.println("Операция создана.");
     }
     
     private static void updateOperationDescription(Common_Facade facade, Scanner scanner) {
-        System.out.print("Введите ID операции: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = readInt(scanner, "Введите ID операции для изменения: ");
         System.out.print("Введите новое описание: ");
         String desc = scanner.nextLine();
         facade.change_description(id, desc);
-        System.out.println("Описание операции изменено.");
+        //System.out.println("Описание операции изменено.");
     }
     
     private static void deleteOperation(Common_Facade facade, Scanner scanner) {
-        System.out.print("Введите ID операции для удаления: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = readInt(scanner, "Введите ID операции для удаления: ");
         facade.deleteOperation(id);
-        System.out.println("Операция удалена.");
+        //System.out.println("Операция удалена.");
     }
     
     // Аналитика: Расчет чистой прибыли за выбранный период
     private static void calculateNetProfit(Common_Facade facade, Scanner scanner) {
-        System.out.print("Введите начальную дату (yyyy-MM-ddTHH:mm): ");
-        String startStr = scanner.nextLine().trim();
-        System.out.print("Введите конечную дату (yyyy-MM-ddTHH:mm): ");
-        String endStr = scanner.nextLine().trim();
-        java.time.LocalDateTime start = java.time.LocalDateTime.parse(startStr);
-        java.time.LocalDateTime end = java.time.LocalDateTime.parse(endStr);
+        java.time.LocalDateTime start = readLocalDateTime(scanner, "Введите начальную дату (yyyy-MM-ddTHH:mm): ");
+        java.time.LocalDateTime end = readLocalDateTime(scanner, "Введите конечную дату (yyyy-MM-ddTHH:mm): ");
         double profit = facade.calculateNetProfit(start, end);
         System.out.println("Чистая прибыль за период: " + profit);
     }
 
     // Аналитика: Расчет общего дохода за период
     private static void calculateTotalIncome(Common_Facade facade, Scanner scanner) {
-        System.out.print("Введите начальную дату (yyyy-MM-ddTHH:mm): ");
-        String startStr = scanner.nextLine().trim();
-        System.out.print("Введите конечную дату (yyyy-MM-ddTHH:mm): ");
-        String endStr = scanner.nextLine().trim();
-        java.time.LocalDateTime start = java.time.LocalDateTime.parse(startStr);
-        java.time.LocalDateTime end = java.time.LocalDateTime.parse(endStr);
+        java.time.LocalDateTime start = readLocalDateTime(scanner, "Введите начальную дату (yyyy-MM-ddTHH:mm): ");
+        java.time.LocalDateTime end = readLocalDateTime(scanner, "Введите конечную дату (yyyy-MM-ddTHH:mm): ");
         double income = facade.calculateNetIncome(start, end);
         System.out.println("Общий доход за период: " + income);
     }
 
     // Аналитика: Расчет общих расходов за период
     private static void calculateTotalExpenditure(Common_Facade facade, Scanner scanner) {
-        System.out.print("Введите начальную дату (yyyy-MM-ddTHH:mm): ");
-        String startStr = scanner.nextLine().trim();
-        System.out.print("Введите конечную дату (yyyy-MM-ddTHH:mm): ");
-        String endStr = scanner.nextLine().trim();
-        java.time.LocalDateTime start = java.time.LocalDateTime.parse(startStr);
-        java.time.LocalDateTime end = java.time.LocalDateTime.parse(endStr);
+        java.time.LocalDateTime start = readLocalDateTime(scanner, "Введите начальную дату (yyyy-MM-ddTHH:mm): ");
+        java.time.LocalDateTime end = readLocalDateTime(scanner, "Введите конечную дату (yyyy-MM-ddTHH:mm): ");
         double expenditure = facade.calculateNetExpenditures(start, end);
         System.out.println("Общие расходы за период: " + expenditure);
     }
 
     // Аналитика: Расчет прибыли по конкретному счёту
     private static void calculateAccountProfit(Common_Facade facade, Scanner scanner) {
-        System.out.print("Введите ID счета: ");
-        int id = Integer.parseInt(scanner.nextLine());
-        System.out.print("Введите начальную дату (yyyy-MM-ddTHH:mm): ");
-        String startStr = scanner.nextLine().trim();
-        System.out.print("Введите конечную дату (yyyy-MM-ddTHH:mm): ");
-        String endStr = scanner.nextLine().trim();
-        java.time.LocalDateTime start = java.time.LocalDateTime.parse(startStr);
-        java.time.LocalDateTime end = java.time.LocalDateTime.parse(endStr);
+        int id = readInt(scanner, "Введите ID счета: ");
+        java.time.LocalDateTime start = readLocalDateTime(scanner, "Введите начальную дату (yyyy-MM-ddTHH:mm): ");
+        java.time.LocalDateTime end = readLocalDateTime(scanner, "Введите конечную дату (yyyy-MM-ddTHH:mm): ");
         double profit = facade.calculateAccountProfit(id, start, end);
         System.out.println("Прибыль для счета ID " + id + " за указанный период: " + profit);
     }
 
     // Аналитика: Группировка операций по категориям (для всех счетов)
     private static void groupOperationsByCategory(Common_Facade facade, Scanner scanner) {
-        System.out.print("Введите начальную дату (yyyy-MM-ddTHH:mm): ");
-        String startStr = scanner.nextLine().trim();
-        System.out.print("Введите конечную дату (yyyy-MM-ddTHH:mm): ");
-        String endStr = scanner.nextLine().trim();
-        java.time.LocalDateTime start = java.time.LocalDateTime.parse(startStr);
-        java.time.LocalDateTime end = java.time.LocalDateTime.parse(endStr);
+        java.time.LocalDateTime start = readLocalDateTime(scanner, "Введите начальную дату (yyyy-MM-ddTHH:mm): ");
+        java.time.LocalDateTime end = readLocalDateTime(scanner, "Введите конечную дату (yyyy-MM-ddTHH:mm): ");
         var groups = facade.groupOperationsByCategory(start, end);
         System.out.println("Суммы по категориям:");
         groups.forEach((catId, sum) ->
@@ -365,14 +379,9 @@ public class Main {
 
     // Аналитика: Группировка операций по категориям для конкретного счета
     private static void groupOpsByCategoryForAccount(Common_Facade facade, Scanner scanner) {
-        System.out.print("Введите ID счета: ");
-        int id = Integer.parseInt(scanner.nextLine());
-        System.out.print("Введите начальную дату (yyyy-MM-ddTHH:mm): ");
-        String startStr = scanner.nextLine().trim();
-        System.out.print("Введите конечную дату (yyyy-MM-ddTHH:mm): ");
-        String endStr = scanner.nextLine().trim();
-        java.time.LocalDateTime start = java.time.LocalDateTime.parse(startStr);
-        java.time.LocalDateTime end = java.time.LocalDateTime.parse(endStr);
+        int id = readInt(scanner, "Введите ID счета: ");
+        java.time.LocalDateTime start = readLocalDateTime(scanner, "Введите начальную дату (yyyy-MM-ddTHH:mm): ");
+        java.time.LocalDateTime end = readLocalDateTime(scanner, "Введите конечную дату (yyyy-MM-ddTHH:mm): ");
         var groups = facade.groupOpsByCatForAccount(id, start, end);
         System.out.println("Для счета ID " + id + ", суммы по категориям:");
         groups.forEach((catId, sum) ->

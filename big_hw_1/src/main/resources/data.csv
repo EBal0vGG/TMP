@@ -1,5 +1,6 @@
 BA,1,Main Account,1000.0
 BA,2,Savings,500.0
+BA,3,вввв,0.0
 Category,1,Salary,false
 Category,2,Food,true
 Operation,1,false,1,1000.0,2025-03-16T12:00,1,Monthly salary

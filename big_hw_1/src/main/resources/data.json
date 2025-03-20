@@ -7,6 +7,10 @@
     "id" : 2,
     "name" : "Savings",
     "balance" : 500.0
+  }, {
+    "id" : 3,
+    "name" : "вввв",
+    "balance" : 0.0
   } ],
   "categories" : [ {
     "id" : 1,

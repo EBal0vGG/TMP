@@ -20,6 +20,7 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
     public void createBA(String name) {
         BA newBA = new BA(name);
         Accounts.add(newBA);
+        System.out.println("Счет \"" + newBA.getName() + "\" успешно создан (ID: " + newBA.getId() + ").");
     }
 
     @Override
@@ -27,9 +28,11 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
         for (BA account : Accounts) {
             if (account.id == id) {
                 Accounts.remove(account);
-                break;
+                System.out.println("Счет с ID " + id + " удален.");
+                return;
             }
         }
+        System.out.println("Счет с ID " + id + " не найден.");
     }
 
     @Override
@@ -67,9 +70,11 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
         for (BA account : Accounts) {
             if (account.id == id) {
                 account.name = new_name;
-                break;
+                System.out.println("Имя счета с ID " + id + " изменено.");
+                return;
             }
         }
+        System.out.println("Счет с ID " + id + " не найден.");
     }
 
     // I_Category_facade
@@ -77,6 +82,7 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
     public void createCategory(String name, boolean is_expenditure) {
         Category newCategory = new Category(name, is_expenditure);
         Categories.add(newCategory);
+        System.out.println("Категория \"" + newCategory.getName() + "\" успешно создана (ID: " + newCategory.getId() + ").");
     }
 
     @Override
@@ -84,9 +90,11 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
         for (Category category : Categories) {
             if (category.id == id) {
                 Categories.remove(category);
-                break;
+                System.out.println("Категория с ID " + id + " удалена.");
+                return;
             }
         }
+        System.out.println("Категория с ID " + id + " не найдена.");
     }
 
     @Override
@@ -94,9 +102,11 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
         for (Category category : Categories) {
             if (category.name.equals(name)) {
                 Categories.remove(category);
-                break;
+                System.out.println("Категория \"" + name + "\" удалена.");
+                return;
             }
         }
+        System.out.println("Категория \"" + name + "\" не найдена.");
     }
 
     @Override
@@ -124,9 +134,11 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
         for (Category category : Categories) {
             if (category.id == id) {
                 category.name = new_name;
-                break;
+                System.out.println("Имя категории с ID " + id + " изменено.");
+                return;
             }
         }
+        System.out.println("Категория с ID " + id + " не найдена.");
     }
 
 
@@ -138,6 +150,8 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
 
         double diff = is_exp ? -Sum : Sum;
         add_to_balance(ba_id, diff);
+
+        System.out.println("Операция (ID: " + newOperation.getId() + ") создана и баланс счета обновлен.");
     }
 
     @Override
@@ -147,26 +161,39 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
 
         double diff = is_exp ? -Sum : Sum;
         add_to_balance(ba_id, diff);
+        System.out.println("Операция создана и баланс счета обновлен.");
     }
 
     @Override
     public void deleteOperation(int id) {
         for (Operation operation : Operations) {
             if (operation.id == id) {
+
+                double rollBackDiff = operation.isExpenditure ? operation.sum : -operation.sum;
+                add_to_balance(operation.BA_id, rollBackDiff);
+
                 Operations.remove(operation);
-                break;
+                System.out.println("Операция с ID " + id + " удалена.");
+                return;
             }
         }
+        System.out.println("Операция с ID " + id + " не найдена.");
     }
 
     @Override
     public void deleteOperation(int BA_id, LocalDateTime Time) {
         for (Operation operation : Operations) {
             if (operation.BA_id == BA_id && operation.time.equals(Time)) {
+
+                double rollbackDiff = operation.isExpenditure ? operation.sum : -operation.sum;
+                add_to_balance(operation.BA_id, rollbackDiff);
+
                 Operations.remove(operation);
-                break;
+                System.out.println("Операция, совершенная \"" + Time + "\" удалена.");
+                return;
             }
         }
+        System.out.println("Операция, совершенная \"" + Time + "\" не найдена.");
     }
 
     @Override
@@ -174,9 +201,10 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
         for (Operation operation : Operations) {
             if (operation.id == id) {
                 System.out.println("ID: " + operation.id + " isExpenditure: " + operation.isExpenditure + " BA_id: " + operation.BA_id + " Sum: " + operation.sum + " Time: " + operation.time + " Category_id: " + operation.category_id + " Description: " + operation.description);
-                break;
+                return;
             }
         }
+        System.out.println("Операция с ID " + id + " не найдена.");
     }
 
     @Override
@@ -194,9 +222,11 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
         for (Operation operation : Operations) {
             if (operation.id == id) {
                 operation.description = new_description;
-                break;
+                System.out.println("Описание операции с ID " + id + " изменено.");
+                return;
             }
         }
+        System.out.println("Операция с ID " + id + " не найдена.");
     }
 
     @Override
@@ -204,9 +234,11 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
         for (Operation operation : Operations) {
             if (operation.BA_id == BA_id && operation.time.equals(Time)) {
                 operation.description = new_description;
-                break;
+                System.out.println("Описание операции, совершенной аккаунтом " + BA_id + " в " + Time + " изменено.");
+                return;
             }
         }
+        System.out.println("Операция, совершенной аккаунтом " + BA_id + " в " + Time + " не найдена.");
     }
 
     //Аналитика
@@ -233,6 +265,14 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
 
     public double calculateNetProfit(LocalDateTime start, LocalDateTime end) {
         return calculateNetIncome(start, end) - calculateNetExpenditures(start, end);
+    }
+    public void printNetProfit(LocalDateTime start, LocalDateTime end) {
+        double profit = calculateNetProfit(start, end);
+        System.out.println("Чистая прибыль за период: " + profit);
+    }
+
+    public void printNetIncome(LocalDateTime start, LocalDateTime end) {
+        System.out.println("Доход за период с " + start + " по " + end + ": " + calculateNetIncome(start, end));
     }
 
 
@@ -291,7 +331,6 @@ public class Common_Facade implements I_BA_facade, I_Category_facade, I_Operatio
     //Работа с файлами и данными
     public void exportData(my_files.exports.ExportVisitor visitor) {
         System.out.println("Экспорт данных");
-        System.err.println("ПОКА ВООБЩЕ НЕ РЕАЛИЗОВАНО - ПО СУТИ, ЭТО ЭКСПОРТ В КОНСОЛЬ");
         for (BA account : Accounts) {
             account.accept(visitor);
         }
